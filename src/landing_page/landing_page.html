@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Spring carrot</title>
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="../commons/styles/commonCSS.css" rel="stylesheet" type="text/css">
+  <link href="./landing_page.css" rel="stylesheet" type="text/css">
+</head>
+
+<header style="background: #ADC178">
+  <div class="grid grid-cols-5 gap-4">
+    <a href="./landing_page.html" class="col-span-1 flex justify-center items-center text-center">
+      <i class="fa-solid fa-carrot" style="color: #f7934c; font-size: 3rem; margin: 1rem;"></i>
+      <p style="color: white; font-size: 2rem; text-align: center">Spring Carrot</p>
+    </a>
+
+    <div class="col-span-3 flex justify-center items-center" id="search-box-wrapper">
+      <input id="search-input" type="search">
+      <button id="search-button">Buscar</button>
+    </div>
+
+    <div class="col-span-1 flex flex-row-reverse items-center" style="margin-right: 2rem">
+      <!-- User section -->
+      <a href="#" id="userIcon" class="relative">
+        <i class="fa-solid fa-user-circle text-white text-3xl"></i>
+      </a>
+
+      <!-- Modal -->
+      <div id="login-modal" class="hidden absolute bg-white rounded-lg shadow-md header-user-icon">
+        <button id="closeModal" class="absolute top-0 right-0 mt-2 mr-2 text-gray-500 hover:text-gray-700">
+          <i class="fa-solid fa-times"></i>
+        </button>
+        <h3 class="text-lg font-semibold mb-2">Login</h3>
+        <div class="mt-6 mb-2">
+          <div class="mb-2">
+            <input id="login-email-input" type="email" placeholder="Email" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500">
+          </div>
+          <div class="mb-2">
+            <input id="login-password-input" type="password" placeholder="Password" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500">
+          </div>
+        </div>
+        <a href="../buyer_register/buyer_register.html" style="text-decoration: underline">
+          ¿No tienes cuenta? Registrate
+        </a>
+        <div class="w-full flex justify-center mt-12">
+          <button class="w-1/2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:border-blue-700">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div id="sub-header" style="display: flex; flex-direction: row; padding: 0.25rem; background-color: #DDE5B6">
+  <a href="../landing_page/landing_page.html#categories-section" style="margin: 0 1rem">Categorías</a>
+  <a href="../catalog_view/catalog.html" style="margin: 0 1rem">Novedades</a>
+  <a href="../catalog_view/catalog.html" style="margin: 0 1rem">Trending</a>
+  <a href="../landing_page/landing_page.html#landing-carousel" style="margin: 0 1rem">Ofertas</a>
+</div>
+
+<body>
+    <!-- CAROUSEL -->
+    <div id="landing-carousel" class="carousel relative">
+      <div class="carousel-inner">
+        <div class="carousel-item w-full">
+          <img class="h-full w-full carousel-image object-cover" src="https://static.showit.co/1200/LFtCpzrjTR2GKbz7bjqtjQ/76050/fz7a5968.jpg" alt="Slide 1">
+        </div>
+        <div class="carousel-item w-full">
+          <img class="h-full w-full carousel-image object-cover" src="https://www.adorama.com/alc/wp-content/uploads/2021/04/photography-camera-types-feature.jpg" alt="Slide 2">
+        </div>
+        <div class="carousel-item w-full">
+          <img class="h-full w-full carousel-image object-cover" src="https://www.apple.com/v/product-red/y/images/meta/product_red__fcz9yyleim2y_og.png?202311272335" alt="Slide 3">
+        </div>
+      </div>
+      <button class="absolute left-10 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-4 py-2 rounded-full" onclick="prevSlide()">&#10094;</button>
+      <button class="absolute right-10 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-4 py-2 rounded-full" onclick="nextSlide()">&#10095;</button>
+    </div>
+
+    <!-- Categories section -->
+    <div id="categories-section" class="bg-white" style="margin: 3rem">
+      <div class="section-header">
+        <i class="fa-solid fa-tags" style="color: #adc178; font-size: 2rem"></i>
+        <h2 class="text-2xl ml-2 font-bold tracking-tight text-gray-900">Categorías</h2>
+      </div>
+      <div class="grid grid-cols-6">
+        <!-- Electronics Category -->
+        <div class="rounded overflow-hidden shadow-lg relative h-80 w-56">
+          <img class="object-cover opacity-60 block h-full w-full" src="https://www.merchantcapital.co.za/hubfs/Electronic%20Online%20Header-01.jpg" alt="Electronics section">
+          <div class="px-6 py-4 img-gradient absolute w-full h-full"></div>
+          <div class="text-overlay">
+            <div class="font-bold text-xl mb-2">Electronica</div>
+            <p class="text-base">
+              Portatil, smartphone, auriculares...
+            </p>
+          </div>
+        </div>
+
+        <!-- Sports equipment Category -->
+        <div class="rounded overflow-hidden shadow-lg relative h-80 w-56">
+          <img class="object-cover opacity-60 block h-full w-full" src="https://miro.medium.com/v2/resize:fit:926/1*JgdL4tQiU7_kY5dAQdYvTQ.png" alt="Sports section">
+          <div class="px-6 py-4 img-gradient absolute w-full h-full"></div>
+          <div class="text-overlay">
+            <div class="font-bold text-xl mb-2">Deportes</div>
+            <p class="text-base">
+              Pelotas, guantes, ropa deportiva...
+            </p>
+          </div>
+        </div>
+
+        <!-- Home Category -->
+        <div class="rounded overflow-hidden shadow-lg relative h-80 w-56">
+          <img class="object-cover opacity-60 block h-full w-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_jeSGARGMd-97fEm_dtmHYa55TGO1SCSmtk8Sg7E7CQ&s" alt="Home section">
+          <div class="px-6 py-4 img-gradient absolute w-full h-full"></div>
+          <div class="text-overlay">
+            <div class="font-bold text-xl mb-2">Hogar</div>
+            <p class="text-base">
+              Muebles, uso diario, decoraciones...
+            </p>
+          </div>
+        </div>
+
+        <!-- Hygiene section -->
+        <div class="rounded overflow-hidden shadow-lg relative h-80 w-56">
+          <img class="object-cover opacity-60 block h-full w-full" src="https://convoyofhope.org/wp-content/uploads/2023/04/Travel-Hygiene-Kits-1.jpg.webp" alt="Hygiene section">
+          <div class="px-6 py-4 img-gradient absolute w-full h-full"></div>
+          <div class="text-overlay">
+            <div class="font-bold text-xl mb-2">Higiene pers.</div>
+            <p class="text-base">
+              Gel de ducha, jabón, cepillo de dientes...
+            </p>
+          </div>
+        </div>
+
+        <!-- Fashion Category -->
+        <div class="rounded overflow-hidden shadow-lg relative h-80 w-56">
+          <img class="object-cover opacity-60 block h-full w-full" src="https://www.crushpixel.com/big-static13/preview4/clothing-accessories-men-women-ready-1117305.jpg" alt="Fashion section">
+          <div class="px-6 py-4 img-gradient absolute w-full h-full"></div>
+          <div class="text-overlay">
+            <div class="font-bold text-xl mb-2">Moda</div>
+            <p class="text-base">
+              Ropa, zapatos, joyería, accesorios...
+            </p>
+          </div>
+        </div>
+
+        <!-- Supermarket section -->
+        <div class="rounded overflow-hidden shadow-lg relative h-80 w-56">
+          <img class="object-cover opacity-60 block h-full w-full" src="https://news.mit.edu/sites/default/files/styles/news_article__image_gallery/public/images/202312/MIT_Food-Diabetes-01_0.jpg?itok=Mp8FVJkC" alt="Supermarket section">
+          <div class="px-6 py-4 img-gradient absolute w-full h-full"></div>
+          <div class="text-overlay">
+            <div class="font-bold text-xl mb-2">Supermercado</div>
+            <p class="text-base">
+              Conservas, frutas, pescados...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="bg-white">
+      <div class="mx-auto" style="margin: 3rem">
+        <div class="section-header">
+          <i class="fa-solid fa-seedling" style="color: #adc178; font-size: 2rem"></i>
+          <h2 class="text-2xl ml-2 font-bold tracking-tight text-gray-900">Catálogo nuevo</h2>
+        </div>
+
+        <!--<div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">-->
+        <div id="listings-wrapper" class="grid grid-cols-4 gap-4">
+        </div>
+      </div>
+    </div>
+    <script src="../commons/scripts/commonScript.js" type="text/javascript"></script>
+    <script src="../landing_page/landingPage.js" type="text/javascript"></script>
+    <script src="../commons/scripts/loginModalScript.js" type="text/javascript"></script>
+</body>
+<footer class="footer">
+  <div class="grid grid-cols-2">
+
+    <div class="flex justify-end items-center content-center text-center h-full footer-left">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="height: 5rem; width: 5rem; margin: 1.5rem"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#f7934c" d="M346.7 6C337.6 17 320 42.3 320 72c0 40 15.3 55.3 40 80s40 40 80 40c29.7 0 55-17.6 66-26.7c4-3.3 6-8.2 6-13.3s-2-10-6-13.2c-11.4-9.1-38.3-26.8-74-26.8c-32 0-40 8-40 8s8-8 8-40c0-35.7-17.7-62.6-26.8-74C370 2 365.1 0 360 0s-10 2-13.3 6zM244.6 136c-40 0-77.1 18.1-101.7 48.2l60.5 60.5c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0l-55.3-55.3 0 .1L2.2 477.9C-2 487-.1 497.8 7 505s17.9 9 27.1 4.8l134.7-62.4-52.1-52.1c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L199.7 433l100.2-46.4c46.4-21.5 76.2-68 76.2-119.2C376 194.8 317.2 136 244.6 136z"/></svg>
+      <p style="color: white; font-size: 3rem; text-align: center">Spring Carrot</p>
+    </div>
+
+    <div class="footer-sections grid grid-cols-2 footer-right">
+      <div>
+        <div class="footer-link-wrapper footer-about flex flex-col">
+          <h3 class="footer-section-title">Conocenos</h3>
+          <a href="">Sobre Spring Carrot</a>
+          <a href="">Sostenibilidad</a>
+        </div>
+        <div class="footer-link-wrapper footer-employment flex flex-col">
+          <h3 class="footer-section-title">Trabaja con nosotros</h3>
+          <a href="">Vender en Spring Carrot</a>
+          <a href="">Trabajar en Spring Carrot</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-link-wrapper footer-help flex flex-col">
+          <h3 class="footer-section-title">Ayuda</h3>
+          <a href="">FAQ</a>
+          <a href="">Atencion al cliente</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</html>
