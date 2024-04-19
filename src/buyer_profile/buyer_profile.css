@@ -1,0 +1,39 @@
+.profile-menu-selector {
+    margin: 0.25rem 2rem;
+}
+
+.lists-wrapper {
+    margin: 2rem;
+}
+
+.user-data-display {
+    margin-left: 0.35rem;
+    font-size: 1.25rem;
+}
+
+.user-data-texts {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.profile-section-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.address-info-text {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #A98467;
+}
+
+.card-info-text {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #ADC178;
+}
+
+.address-info-display, .card-info-display {
+    font-size: 1rem;
+    margin-left: 0.35rem;
+}
