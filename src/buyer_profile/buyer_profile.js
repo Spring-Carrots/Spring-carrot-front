@@ -6,7 +6,7 @@ let paymentCardsWrapper = document.getElementById('payment-cards-wrapper');
 
 function appendUserAddressCard(addressInfo) {
     let addressCard = document.createElement('div');
-    updateClasses(addressCard);
+    buyerProfileInforCardClasses(addressCard);
 
     addressCard.style.borderRadius = "1.5rem";
     addressCard.style.backgroundColor = "white";
@@ -33,7 +33,7 @@ function appendUserAddressCard(addressInfo) {
 
 function appendPaymentMethodCard(cardInfo) {
     let paymentCard = document.createElement('div');
-    updateClasses(paymentCard);
+    buyerProfileInforCardClasses(paymentCard);
 
     paymentCard.style.borderRadius = "1.5rem";
     paymentCard.style.backgroundColor = "white";
@@ -58,7 +58,7 @@ function appendPaymentMethodCard(cardInfo) {
     paymentCardsWrapper.append(paymentCard);
 }
 
-function updateClasses(htmlElement) {
+function buyerProfileInforCardClasses(htmlElement) {
     htmlElement.classList.add('shadow-lg');
     htmlElement.classList.add('flex');
     htmlElement.classList.add('flex-col');

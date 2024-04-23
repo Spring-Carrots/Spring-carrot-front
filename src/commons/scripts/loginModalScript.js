@@ -1,18 +1,18 @@
 const userIcon = document.getElementById('userIcon');
-const modal = document.getElementById('login-modal');
-const closeModalBtn = document.getElementById('closeModal');
+const userModal = document.getElementById('login-modal');
+const closeUserModal = document.getElementById('closeUserModal');
 
 updateUserIconListener();
 
 // Close modal when close button is clicked
-closeModalBtn.addEventListener('click', function(event) {
-    modal.classList.add('hidden');
+closeUserModal.addEventListener('click', function() {
+    userModal.classList.add('hidden');
 });
 
 // Close modal if click outside modal
 document.body.addEventListener('click', function(event) {
-    if (!modal.contains(event.target) && event.target !== userIcon) {
-        modal.classList.add('hidden');
+    if (!userModal.contains(event.target) && event.target !== userIcon) {
+        userModal.classList.add('hidden');
     }
 });
 
@@ -39,7 +39,8 @@ function updateUserIconListener() {
         // Open login modal if no logged-user-id
         userIcon.addEventListener('click', function(event) {
             event.stopPropagation(); // Prevent click event from propagating to document
-            modal.classList.remove('hidden');
+            userModal.classList.remove('hidden');
+            cartModal.classList.add('hidden');
         });
     } else {
         if (loginConfirm()) {
@@ -50,7 +51,7 @@ function updateUserIconListener() {
             // Open login modal if login invalid
             userIcon.addEventListener('click', function(event) {
                 event.stopPropagation(); // Prevent click event from propagating to document
-                modal.classList.remove('hidden');
+                userModal.classList.remove('hidden');
             });
         }
     }

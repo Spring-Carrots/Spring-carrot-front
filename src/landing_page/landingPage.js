@@ -10,7 +10,7 @@ function loadListingsFromDB() {
                 listing.classList.add('rounded-lg');
                 listing.classList.add('shadow-lg');
                 listing.innerHTML = `
-            <a href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=nebphhblupfcjatq3ud81qmvhu&_ij_reload=RELOAD_ON_SAVE&id=${json[i].id}">
+            <a href="http://localhost:63343/SpringCarrot/src/product_detail/listingDetail.html?_ijt=la0nk5pd7e6lus6g9836jas5tg&_ij_reload=RELOAD_ON_SAVE&id=${json[i].id}">
                 <div class="h-80" style="overflow: hidden">
                   <img class="w-full object-cover rounded-t-lg" src="${json[i].images[0]}" alt="White T-shirt">
                 </div>

@@ -28,6 +28,15 @@
   /* Number of lines to show before truncating */
 }
 
+.truncate-lines-2 {
+  /* Number of lines to show before truncating */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  /* Number of lines to show before truncating */
+}
+
 .footer {
   background-color: #DDE5B6;
   padding: 3rem;
@@ -83,10 +92,18 @@
   margin-bottom: 2rem;
 }
 
-.header-user-icon {
+.header-user-modal {
   z-index: 2;
   right: 2rem;
   top: 4rem;
   width: 25rem;
   padding: 2rem 4rem;
+}
+
+.header-cart-modal {
+  z-index: 2;
+  right: 2rem;
+  top: 4rem;
+  width: 25rem;
+  padding: 1rem;
 }
