@@ -21,56 +21,40 @@ let passwordInput = document.getElementById('login-password-input');
 let loginButton = document.getElementById('login-modal-login-button');
 
 loginButton.addEventListener('click', async () => {
-    await fetch(new Request('http://localhost:5237/api/Api/login2', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            nick: nickInput.value,
-            password: passwordInput.value
+    console.log(`http://localhost:5237/api/Api/login/${nickInput.value}/${passwordInput.value}`);
+    await fetch(new Request(`http://localhost:5237/api/Api/login/${nickInput.value}/${passwordInput.value}`))
+        .then(res=> {
+            if (res.status < 200 || (res.status >= 300 && res.status < 700)) {
+                document.getElementById('login-modal-error').innerText = 'Datos incorrectos!!'
+            } else if (res.ok) {
+                document.getElementById('login-modal-error').innerText = '';
+                return res.json();
+            }
         })
-    })).then(response => {
-        console.log(response.body);
-    }).then(data => {
-        console.log(`Response: ${data}`);
-    })
+        .then((json) => {
+           if (json !== undefined) {
+               localStorage.setItem('logged-user', JSON.stringify(json));
+               updateUserIconListener();
+               userModal.classList.add('hidden');
+           }
+        })
 })
 
-//  TODO IMPLEMENT TOKEN IF POSSIBLE
-
-async function loginConfirm() {
-    // TODO RETURN TRUE IF LOGIN SUCCESS FALSE IF NOT
-    return false;
-}
-
-function loginUser() {
-    // TODO SAVE ID AND PASS IF SUCCESS
-}
-
-// TODO UPDATE LOCAL STORAGE WITH USERID
-
 function updateUserIconListener() {
-    let loggedId = localStorage.getItem('logged-user-id');
-    let loggedHash = localStorage.getItem('logged-user-hash');
-    if ((loggedId === null || loggedId === undefined) && (loggedHash === null || loggedHash === undefined)) {
+    let loggedUser = localStorage.getItem('logged-user');
+    if (loggedUser === null) {
         // Open login modal if no logged-user-id
-        userIcon.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent click event from propagating to document
-            userModal.classList.remove('hidden');
-            cartModal.classList.add('hidden');
-        });
+        userIcon.addEventListener('click', openModalListener);
     } else {
-        if (loginConfirm()) {
-            userIcon.addEventListener('click', function() {
-                window.location.href = "../buyer_profile/buyer_profile.html";
-            });
-        } else {
-            // Open login modal if login invalid
-            userIcon.addEventListener('click', function(event) {
-                event.stopPropagation(); // Prevent click event from propagating to document
-                userModal.classList.remove('hidden');
-            });
-        }
+        userIcon.removeEventListener('click', openModalListener);
+        userIcon.addEventListener('click', function() {
+            window.location.href = "../buyer_profile/buyer_profile.html";
+        });
     }
+}
+
+function openModalListener (event) {
+    event.stopPropagation(); // Prevent click event from propagating to document
+    userModal.classList.remove('hidden');
+    cartModal.classList.add('hidden');
 }
