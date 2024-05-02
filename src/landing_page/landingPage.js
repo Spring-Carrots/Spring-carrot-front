@@ -4,17 +4,14 @@ function loadListingsFromDB() {
     fetch('http://localhost:5237/api/Api/productos')
         .then(res=>res.json())
         .then((json) => {
-
-            console.log(json);
-
             for (let i = 0; i < 8; i++) {
                 let listing = document.createElement('div');
                 listing.classList.add('rounded-lg');
                 listing.classList.add('shadow-lg');
                 listing.innerHTML = `
             <a href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=l9b8sppmmoqv4418ujei8ivt66&_ij_reload=RELOAD_ON_SAVE&id=${json[i].id}">
-                <div class="h-80" style="overflow: hidden">
-                  <img class="w-full object-cover rounded-t-lg" src="${json[i].foto1}" alt="White T-shirt">
+                <div class="h-80" style="overflow: hidden; display: flex; justify-content: center; align-items: center">
+                  <img class="w-full object-cover rounded-t-lg" src="${json[i].foto1}" alt="White T-shirt" style="width: auto; height: 100%; object-fit: cover">
                 </div>
                 <div class="px-6 py-4" style="min-height: 15rem">
                   <div class="font-bold text-xl mb-2 truncate-lines-2">${json[i].nombre}</div>

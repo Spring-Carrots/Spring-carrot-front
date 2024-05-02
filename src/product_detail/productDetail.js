@@ -11,12 +11,7 @@ fetch(productFetchURL)
         loadDetails(json);
     });
     */
-
-console.log(`local-prod-${productId}`);
-
 let product = JSON.parse(localStorage.getItem(`local-prod-${productId}`));
-
-console.log(product);
 
 loadImage([product.foto1, product.foto2, product.foto3]);
 loadDetails(product);
