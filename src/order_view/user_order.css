@@ -1,0 +1,17 @@
+img {
+    height: 10rem;
+}
+
+#make-order-button {
+    background-color: #DDE5B6;
+    color: white;
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+#make-order-button:hover {
+    background-color: #ADC178;
+}

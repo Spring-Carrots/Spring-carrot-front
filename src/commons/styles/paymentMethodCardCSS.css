@@ -1,0 +1,15 @@
+.card-info-text {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #ADC178;
+}
+
+.card-info-display {
+    font-size: 1rem;
+    margin-left: 0.35rem;
+}
+
+.payment-card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}

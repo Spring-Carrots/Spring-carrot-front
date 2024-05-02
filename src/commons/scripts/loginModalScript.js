@@ -16,8 +16,29 @@ document.body.addEventListener('click', function(event) {
     }
 });
 
-let emailInput = document.getElementById('login-email-input');
+let nickInput = document.getElementById('login-nick-input');
 let passwordInput = document.getElementById('login-password-input');
+let loginButton = document.getElementById('login-modal-login-button');
+
+loginButton.addEventListener('click', async () => {
+    console.log(nickInput.value);
+    console.log(passwordInput.value);
+
+    await fetch(new Request('http://localhost:5237/api/Api/login2', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nick: nickInput.value,
+            password: passwordInput.value
+        })
+    })).then(response => {
+        console.log(response.body);
+    }).then(data => {
+        console.log(`Response: ${data}`);
+    })
+})
 
 //  TODO IMPLEMENT TOKEN IF POSSIBLE
 

@@ -25,4 +25,13 @@ function updateSlide() {
     document.querySelector('.carousel-inner').style.transform = `translateX(${offset}%)`;
 }
 
+function buyerProfileInforCardClasses(htmlElement) {
+    htmlElement.classList.add('shadow-lg');
+    htmlElement.classList.add('flex');
+    htmlElement.classList.add('flex-col');
+    htmlElement.classList.add('p-5');
+    htmlElement.classList.add('w-full');
+    htmlElement.classList.add('mb-8');
+}
+
 // TODO: MAKE AND EXPORT GLOBAL CATALOG GENERATOR
