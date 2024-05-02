@@ -60,18 +60,18 @@ showLaterButton.addEventListener('click', async () => {
                         listing.style.margin = '2rem';
                         listing.style.width = '100%';
                         listing.innerHTML = `
-                            <a class="grid grid-cols-12" href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=l9b8sppmmoqv4418ujei8ivt66&_ij_reload=RELOAD_ON_SAVE&id=${json[i].id}">
+                            <a class="grid grid-cols-12 gap-2" href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=l9b8sppmmoqv4418ujei8ivt66&_ij_reload=RELOAD_ON_SAVE&id=${json[i].id}">
                                 <div class="h-80 col-span-4" style="overflow: hidden; display: flex; justify-content: center; align-items: center">
                                   <img class="w-full object-cover rounded-t-lg" src="${json[i].foto1}" alt="White T-shirt" style="width: auto; height: 100%; object-fit: cover">
                                 </div>
                                 <div class="px-6 py-4 col-span-6" style="min-height: 15rem">
                                   <div class="font-bold text-xl mb-2 truncate-lines-2">${json[i].nombre}</div>
-                                  <p class="text-gray-700 text-base truncate-lines-4">
+                                  <p class="text-gray-700 text-base truncate-lines-9">
                                   ${json[i].descripcion}
                                   </p>
                                 </div>
-                                <div class="flex flex-col col-span-2">
-                                    <p style="font-size: 1.5rem; font-weight: bold; text-align: center; margin-right: 0.5rem">${json[i].precio}€</p>
+                                <div class="flex flex-col col-span-2 mt-6">
+                                    <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">${json[i].precio}€</p>
                                   <button class="inline-block mr-2 mb-2 later-to-trash justify-center items-center profile-listing-trash-button" value="${json[i].id}"><i class="fa-solid fa-trash" style="color: white"></i></button>
                                   <button class="inline-block mr-2 mb-2 later-to-cart justify-center items-center profile-listing-to-cart-button" value="${json[i].id}"><i class="fa-solid fa-cart-shopping" style="color: white"></i></button>
                                 </div>
