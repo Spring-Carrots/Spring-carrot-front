@@ -1,22 +1,23 @@
 // TODO LINK API
+let loggedUser;
 
-function loadUserData (user) {
-    document.getElementById('user-nick-display').innerText = user.nickname;
-    document.getElementById('user-name-display').innerText = user.name;
-    document.getElementById('user-lastname-display').innerText = user.lastname;
-    document.getElementById('user-email-display').innerText = user.email;
+function loadUserData () {
+    loggedUser = sessionStorage.getItem('logged-user');
+    loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
+
+    if (loggedUser !== null) {
+        document.getElementById('user-nick-display').innerText = loggedUser.nick_name;
+        document.getElementById('user-name-display').innerText = loggedUser.nombre;
+        //document.getElementById('user-lastname-display').innerText = loggedUser.apellido;
+        document.getElementById('user-email-display').innerText = loggedUser.email;
+    }
 }
 
 
 
 // HARD CODED EXAMPLES
 
-loadUserData({
-    nickname: "Admin of Super Admins",
-    name: "Spring Carrot",
-    lastname: "Admin Rabbit",
-    email: "admin-rabbit@spring-carrot.com"
-})
+loadUserData();
 
 appendUserAddressCard({
     street: 'Avinguda dels Tarongers S/n Edificio 1H Planta baja',

@@ -25,15 +25,15 @@ loginButton.addEventListener('click', async () => {
     await fetch(new Request(`http://localhost:5237/api/Api/login/${nickInput.value}/${passwordInput.value}`))
         .then(res=> {
             if (res.status < 200 || (res.status >= 300 && res.status < 700)) {
-                document.getElementById('login-modal-error').innerText = 'Datos incorrectos!!'
+                //document.getElementById('login-modal-error').innerText = 'Datos incorrectos!!'
             } else if (res.ok) {
-                document.getElementById('login-modal-error').innerText = '';
+                //document.getElementById('login-modal-error').innerText = '';
                 return res.json();
             }
         })
         .then((json) => {
            if (json !== undefined) {
-               localStorage.setItem('logged-user', JSON.stringify(json));
+               sessionStorage.setItem('logged-user', JSON.stringify(json));
                updateUserIconListener();
                userModal.classList.add('hidden');
            }
@@ -41,7 +41,7 @@ loginButton.addEventListener('click', async () => {
 })
 
 function updateUserIconListener() {
-    let loggedUser = localStorage.getItem('logged-user');
+    let loggedUser = sessionStorage.getItem('logged-user');
     if (loggedUser === null) {
         // Open login modal if no logged-user-id
         userIcon.addEventListener('click', openModalListener);
