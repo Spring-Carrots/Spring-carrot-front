@@ -23,21 +23,27 @@ showCartButton.addEventListener('click', async () => {
             <h2 id="catalog-section-header" style="font-weight: bold">Carrito</h2>
         `;
         profileListsWrapper.hidden = false;
-        await fetch(`http://localhost:5237/api/Api/obtener-carrito/${loggedUser.id}`)
-            .then(res=> res.json())
-            .then((json) => {
-                if (json !== undefined) {
-                    if (json.length <= 0) {
-                        let emptyElement = addEmpty(document.createElement('div'));
-                        profileListsListingWrapper.append(emptyElement);
-                    } else {
-                        for (let i = 0; i < json.length; i++) {
-                            let listing = createListing(document.createElement('div'), json[i], 'cart');
-                            profileListsListingWrapper.append(listing);
+        try {
+            await fetch(`http://localhost:5237/api/Api/obtener-carrito/${loggedUser.id}`)
+                .then(res=> res.json())
+                .then((json) => {
+                    if (json !== undefined) {
+                        if (json.length <= 0) {
+                            let emptyElement = addEmpty(document.createElement('div'));
+                            profileListsListingWrapper.append(emptyElement);
+                        } else {
+                            for (let i = 0; i < json.length; i++) {
+                                let listing = createListing(document.createElement('div'), json[i], 'cart');
+                                profileListsListingWrapper.append(listing);
+                            }
                         }
                     }
-                }
-            })
+                })
+        } catch (error) {
+            let emptyElement = addEmpty(document.createElement('div'));
+            profileListsListingWrapper.append(emptyElement);
+        }
+
     }
 })
 
@@ -81,8 +87,8 @@ function addEmpty(emptyElement) {
     emptyElement.style.margin = '5rem 0';
     emptyElement.innerHTML = `
         <div class="flex flex-col items-center">
-            <img src="https://clipart-library.com/images/kTKxRaBTj.png" style="width: 30rem">
-            <h1 style="font-weight: lighter; font-size: 3rem; margin: 1.25rem 0">Aqui no hay nada...</h1>
+            <img src="https://clipart-library.com/images/kTKxRaBTj.png" style="width: 20rem">
+            <h1 style="font-weight: lighter; font-size: 1.5rem; margin: 1.25rem 0">Aqui no hay nada...</h1>
         </div>
     `;
 
