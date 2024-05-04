@@ -12,7 +12,7 @@ async function loadLater() {
             .then((json) => {
                 if (json !== undefined) {
                     if (json.length <= 0) {
-                        let emptyElement = addEmpty(document.createElement('div'));
+                        let emptyElement = addEmpty(document.createElement('div'), '20rem', '1.5rem');
                         profileListsListingWrapper.append(emptyElement);
                     } else {
                         let listingIds = [];

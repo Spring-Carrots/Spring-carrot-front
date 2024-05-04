@@ -34,4 +34,16 @@ function buyerProfileInforCardClasses(htmlElement) {
     htmlElement.classList.add('mb-8');
 }
 
+function addEmpty(emptyElement, imgWidth, fontSize) {
+    emptyElement.style.margin = '5rem 0';
+    emptyElement.innerHTML = `
+        <div class="flex flex-col items-center">
+            <img src="https://clipart-library.com/images/kTKxRaBTj.png" style="width: ${imgWidth}">
+            <h1 style="font-weight: lighter; font-size: ${fontSize}; margin: 1.25rem 0">Aqui no hay nada...</h1>
+        </div>
+    `;
+
+    return emptyElement;
+}
+
 // TODO: MAKE AND EXPORT GLOBAL CATALOG GENERATOR

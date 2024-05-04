@@ -29,7 +29,7 @@ showCartButton.addEventListener('click', async () => {
                 .then((json) => {
                     if (json !== undefined) {
                         if (json.length <= 0) {
-                            let emptyElement = addEmpty(document.createElement('div'));
+                            let emptyElement = addEmpty(document.createElement('div'), '20rem', '1.5rem');
                             profileListsListingWrapper.append(emptyElement);
                         } else {
                             for (let i = 0; i < json.length; i++) {
@@ -40,7 +40,7 @@ showCartButton.addEventListener('click', async () => {
                     }
                 })
         } catch (error) {
-            let emptyElement = addEmpty(document.createElement('div'));
+            let emptyElement = addEmpty(document.createElement('div'), '20rem', '1.5rem');
             profileListsListingWrapper.append(emptyElement);
         }
 
@@ -81,16 +81,4 @@ function createListing(cardElement, listing, sectionName) {
         </div>`;
 
     return cardElement;
-}
-
-function addEmpty(emptyElement) {
-    emptyElement.style.margin = '5rem 0';
-    emptyElement.innerHTML = `
-        <div class="flex flex-col items-center">
-            <img src="https://clipart-library.com/images/kTKxRaBTj.png" style="width: 20rem">
-            <h1 style="font-weight: lighter; font-size: 1.5rem; margin: 1.25rem 0">Aqui no hay nada...</h1>
-        </div>
-    `;
-
-    return emptyElement;
 }
