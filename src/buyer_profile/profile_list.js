@@ -1,5 +1,6 @@
 let showCartButton = document.getElementById('cart-list');
 let showLaterButton = document.getElementById('later-list');
+let showWantedButton = document.getElementById('wanted-list');
 
 
 
@@ -10,14 +11,12 @@ let profileListsWrapper = document.getElementById('lists-wrapper');
 let mainProfileSection = document.getElementById('main-profile-section');
 let closeListButton = document.getElementById('close-list-button');
 
+loggedUser = sessionStorage.getItem('logged-user');
+loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
+
 showCartButton.addEventListener('click', async () => {
-    loggedUser = sessionStorage.getItem('logged-user');
-    loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
-
-
-    //TODO RESPONSE TYPE AND DATA?????
-
     if (loggedUser !== null) {
+        profileListsListingWrapper.innerHTML = '';
         mainProfileSection.hidden = true;
         listsHeaderWrapper.innerHTML = `
             <i class="fa-solid fa-cart-shopping" style="color: #adc178; font-size: 2rem; margin-right: 1rem"></i>
@@ -25,58 +24,46 @@ showCartButton.addEventListener('click', async () => {
         `;
         profileListsWrapper.hidden = false;
         await fetch(`http://localhost:5237/api/Api/obtener-carrito/${loggedUser.id}`)
-            .then(res => {
-                console.log(res);
-                return res.json();
-            }).then(json => {
-                console.log(json);
+            .then(res=> res.json())
+            .then((json) => {
                 if (json !== undefined) {
-
+                    if (json.length <= 0) {
+                        let emptyElement = addEmpty(document.createElement('div'));
+                        profileListsListingWrapper.append(emptyElement);
+                    } else {
+                        for (let i = 0; i < json.length; i++) {
+                            let listing = createListing(document.createElement('div'), json[i], 'cart');
+                            profileListsListingWrapper.append(listing);
+                        }
+                    }
                 }
             })
     }
 })
 
-showLaterButton.addEventListener('click', async () => {
-    loggedUser = sessionStorage.getItem('logged-user');
-    loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
+showLaterButton.addEventListener('click', loadLater);
 
+showWantedButton.addEventListener('click', async () => {
     if (loggedUser !== null) {
+        profileListsListingWrapper.innerHTML = '';
         mainProfileSection.hidden = true;
         listsHeaderWrapper.innerHTML = `
-            <i class="fa-solid fa-list" style="color: #adc178; font-size: 2rem; margin-right: 1rem"></i>
-            <h2 id="catalog-section-header" style="font-weight: bold">Guardado para más tarde</h2>
+            <i class="fa-solid fa-star" style="color: #adc178; font-size: 2rem; margin-right: 1rem"></i>
+            <h2 id="catalog-section-header" style="font-weight: bold">Lista de favoritos</h2>
         `;
         profileListsWrapper.hidden = false;
-        await fetch(`http://localhost:5237/api/Api/obtener-guardados/${loggedUser.id}`)
+        await fetch(`http://localhost:5237/api/Api/obtener-deseos/${loggedUser.id}`)
             .then(res=> res.json())
             .then((json) => {
-                console.log(json);
                 if (json !== undefined) {
-                    for (let i = 0; i < json.length; i++) {
-                        let listing = document.createElement('div');
-                        listing.classList.add('rounded-lg');
-                        listing.classList.add('shadow-lg');
-                        listing.style.margin = '2rem';
-                        listing.style.width = '100%';
-                        listing.innerHTML = `
-                            <a class="grid grid-cols-12 gap-2" href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=l9b8sppmmoqv4418ujei8ivt66&_ij_reload=RELOAD_ON_SAVE&id=${json[i].id}">
-                                <div class="h-80 col-span-4" style="overflow: hidden; display: flex; justify-content: center; align-items: center">
-                                  <img class="w-full object-cover rounded-t-lg" src="${json[i].foto1}" alt="White T-shirt" style="width: auto; height: 100%; object-fit: cover">
-                                </div>
-                                <div class="px-6 py-4 col-span-6" style="min-height: 15rem">
-                                  <div class="font-bold text-xl mb-2 truncate-lines-2">${json[i].nombre}</div>
-                                  <p class="text-gray-700 text-base truncate-lines-9">
-                                  ${json[i].descripcion}
-                                  </p>
-                                </div>
-                                <div class="flex flex-col col-span-2 mt-6">
-                                    <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">${json[i].precio}€</p>
-                                  <button class="inline-block mr-2 mb-2 later-to-trash justify-center items-center profile-listing-trash-button" value="${json[i].id}"><i class="fa-solid fa-trash" style="color: white"></i></button>
-                                  <button class="inline-block mr-2 mb-2 later-to-cart justify-center items-center profile-listing-to-cart-button" value="${json[i].id}"><i class="fa-solid fa-cart-shopping" style="color: white"></i></button>
-                                </div>
-                            </a>`;
-                        profileListsListingWrapper.append(listing);
+                    if (json.length <= 0) {
+                        let emptyElement = addEmpty(document.createElement('div'));
+                        profileListsListingWrapper.append(emptyElement);
+                    } else {
+                        for (let i = 0; i < json.length; i++) {
+                            let listing = createListing(document.createElement('div'), json[i], 'wanted');
+                            profileListsListingWrapper.append(listing);
+                        }
                     }
                 }
             })
@@ -89,3 +76,98 @@ closeListButton.addEventListener('click', () => {
     listsHeaderWrapper.innerHTML = '';
     mainProfileSection.hidden = false;
 })
+
+async function loadLater() {
+    if (loggedUser !== null) {
+        profileListsListingWrapper.innerHTML = '';
+        mainProfileSection.hidden = true;
+        listsHeaderWrapper.innerHTML = `
+            <i class="fa-solid fa-list" style="color: #adc178; font-size: 2rem; margin-right: 1rem"></i>
+            <h2 id="catalog-section-header" style="font-weight: bold">Guardado para más tarde</h2>
+        `;
+        profileListsWrapper.hidden = false;
+        await fetch(`http://localhost:5237/api/Api/obtener-guardados/${loggedUser.id}`)
+            .then(res=> res.json())
+            .then((json) => {
+                if (json !== undefined) {
+                    if (json.length <= 0) {
+                        let emptyElement = addEmpty(document.createElement('div'));
+                        profileListsListingWrapper.append(emptyElement);
+                    } else {
+                        let listingIds = [];
+                        for (let i = 0; i < json.length; i++) {
+                            let listing = createListing(document.createElement('div'), json[i], 'later');
+                            profileListsListingWrapper.append(listing);
+                            listingIds.push(json[i].id);
+                        }
+
+                        sessionStorage.setItem('laterListIds', JSON.stringify(listingIds));
+
+                        deleteLaterListeners();
+                        setListingCardListeners();
+                    }
+                }
+            })
+    }
+}
+
+function createListing(cardElement, listing, sectionName) {
+    cardElement.classList.add('rounded-lg');
+    cardElement.classList.add('shadow-lg');
+    cardElement.style.margin = '2rem';
+    cardElement.style.width = '100%';
+    cardElement.innerHTML = `
+        <div class="grid grid-cols-12 gap-2 listing-card" data-href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=l9b8sppmmoqv4418ujei8ivt66&_ij_reload=RELOAD_ON_SAVE&id=${listing.id}">
+            <div class="h-80 col-span-4" style="overflow: hidden; display: flex; justify-content: center; align-items: center">
+              <img class="w-full object-cover rounded-l-lg" src="${listing.foto1}" alt="White T-shirt" style="width: auto; height: 100%; object-fit: cover">
+            </div>
+            <div class="px-6 py-4 col-span-6" style="min-height: 15rem">
+              <div class="font-bold text-xl mb-2 truncate-lines-2">${listing.nombre}</div>
+              <p class="text-gray-700 text-base truncate-lines-9">
+              ${listing.descripcion}
+              </p>
+            </div>
+            <div class="flex flex-col col-span-2 mt-6 items-center">
+              <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">${listing.precio}€</p>
+              <button class="inline-block mb-2 ${sectionName}-to-trash justify-center items-center profile-listing-trash-button" data-value="${listing.id}" style="width: 50%;  z-index: 3"><i class="fa-solid fa-trash" style="color: white" data-value="${listing.id}"></i></button>
+              <button class="inline-block mb-2 ${sectionName}-to-cart justify-center items-center profile-listing-to-cart-button" data-value="${listing.id}" style="width: 50%; z-index: 3"><i class="fa-solid fa-cart-shopping" style="color: white" data-value="${listing.id}"></i></button>
+            </div>
+        </div>`;
+
+    return cardElement;
+}
+
+function addEmpty(emptyElement) {
+    emptyElement.style.margin = '5rem 0';
+    emptyElement.innerHTML = `
+        <div class="flex flex-col items-center">
+            <img src="https://clipart-library.com/images/kTKxRaBTj.png" style="width: 30rem">
+            <h1 style="font-weight: lighter; font-size: 3rem; margin: 1.25rem 0">Aqui no hay nada...</h1>
+        </div>
+    `;
+
+    return emptyElement;
+}
+
+function deleteLaterListeners() {
+    let laterDeleteButtons = document.getElementsByClassName('later-to-trash');
+
+    for (let i = 0; i < laterDeleteButtons.length; i++) {
+        laterDeleteButtons[i].addEventListener('click', async () => {
+            event.stopPropagation();
+
+            let laterList = JSON.parse(sessionStorage.getItem('laterListIds'));
+            let listingId = event.target.getAttribute('data-value');
+
+            if (laterList.indexOf(listingId) === -1) {
+                await fetch(`http://localhost:5237/api/Api/eliminar-producto-a-guardados/${loggedUser.id}/${listingId}`, {
+                    method: 'POST'
+                }).then(res => {
+                    if (res.ok) {
+                        loadLater();
+                    }
+                })
+            }
+        })
+    }
+}

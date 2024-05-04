@@ -116,3 +116,23 @@
   width: 25rem;
   padding: 1rem;
 }
+
+.listing-action-button {
+  z-index: 2;
+  background-color: #adc178;
+  border-radius: 10px;
+  border: #96a767 2px solid;
+  margin: 0;
+  height: auto;
+  width: 3rem !important;
+}
+
+.listing-later-button {
+  z-index: 2;
+  background-color: white;
+  border-radius: 10px;
+  border: darkgoldenrod 2px solid;
+  margin: 0 1rem;
+  height: auto;
+  width: 3rem !important;
+}
