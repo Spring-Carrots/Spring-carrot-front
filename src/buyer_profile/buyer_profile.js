@@ -2,8 +2,6 @@
 let loggedUser;
 
 function loadUserData () {
-    document.getElementById('make-order').hidden = true;
-
     loggedUser = sessionStorage.getItem('logged-user');
     loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
 

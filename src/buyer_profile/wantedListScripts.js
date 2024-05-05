@@ -1,5 +1,4 @@
 async function  loadWanted() {
-    document.getElementById('make-order').hidden = true;
     if (loggedUser !== null) {
         profileListsListingWrapper.innerHTML = '';
         mainProfileSection.hidden = true;

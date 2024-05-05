@@ -34,3 +34,11 @@
     border-radius: 10px;
     border: #96a767 2px solid;
 }
+
+#make-order-button {
+    padding: 0.25rem 0.5rem;
+    background-color: #adc178;
+    color: white;
+    border-radius: 10px;
+    border: #96a767 1px solid;
+}

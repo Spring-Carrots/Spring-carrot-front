@@ -1,6 +1,4 @@
 async function loadLater() {
-    document.getElementById('make-order').hidden = true;
-
     if (loggedUser !== null) {
         profileListsListingWrapper.innerHTML = '';
         mainProfileSection.hidden = true;

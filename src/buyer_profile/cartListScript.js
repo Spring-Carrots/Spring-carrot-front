@@ -21,11 +21,20 @@ async function loadCart() {
                                 profileListsListingWrapper.append(listing);
                             }
 
-                            document.getElementById('make-order').hidden = false;
+                            let makeOrderButton = document.createElement('button');
+                            makeOrderButton.innerText = 'Realizar pedido';
+                            makeOrderButton.id = 'make-order-button';
+
+                            profileListsWrapper.append(makeOrderButton);
+
+                            makeOrderButton.addEventListener('click', () => {
+                                window.location.href = 'http://localhost:63342/SpringCarrot/src/order_view/user_order.html?_ijt=3h663rvnvi6icovpat08qu0tl0&_ij_reload=RELOAD_ON_SAVE';
+                            })
                         }
                     }
                 })
         } catch (error) {
+            console.log(error)
             let emptyElement = addEmpty(document.createElement('div'), '20rem', '1.5rem');
             profileListsListingWrapper.append(emptyElement);
         }
