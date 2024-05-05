@@ -21,7 +21,7 @@ function loadListingsFromDB() {
                     </div>
                     <div class="flex flex-row-reverse" style="margin: 2rem; align-items: center">
                         <button class="inline-block mb-2 listing-to-cart justify-center items-center listing-action-button" data-value="${json[i].id}" style="width: 50%; z-index: 3"><i class="fa-solid fa-cart-shopping" style="color: white" data-value="${json[i].id}"></i></button>
-                        <button class="inline-block mb-2 listing-to-list justify-center items-center listing-later-button" data-value="${json[i].id}" style="width: 50%;  z-index: 3"><i class="fa-solid fa-star" style="color: goldenrod" data-value="${json[i].id}"></i></button>
+                        <button class="inline-block mb-2 listing-to-wanted justify-center items-center listing-later-button" data-value="${json[i].id}" style="width: 50%;  z-index: 3"><i class="fa-solid fa-star" style="color: goldenrod" data-value="${json[i].id}"></i></button>
                         <p style="font-size: 1.5rem; font-weight: bold; text-align: center; margin-right: 0.5rem">
                         ${json[i].precio}€
                         </p>
@@ -34,6 +34,7 @@ function loadListingsFromDB() {
 
             setListingCardListeners();
             toCartListener();
+            toWantedListeners();
         });
 }
 
