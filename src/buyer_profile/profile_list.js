@@ -14,39 +14,7 @@ let closeListButton = document.getElementById('close-list-button');
 loggedUser = sessionStorage.getItem('logged-user');
 loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
 
-showCartButton.addEventListener('click', async () => {
-    if (loggedUser !== null) {
-        profileListsListingWrapper.innerHTML = '';
-        mainProfileSection.hidden = true;
-        listsHeaderWrapper.innerHTML = `
-            <i class="fa-solid fa-cart-shopping" style="color: #adc178; font-size: 2rem; margin-right: 1rem"></i>
-            <h2 id="catalog-section-header" style="font-weight: bold">Carrito</h2>
-        `;
-        profileListsWrapper.hidden = false;
-        try {
-            await fetch(`http://localhost:5237/api/Api/obtener-carrito/${loggedUser.id}`)
-                .then(res=> res.json())
-                .then((json) => {
-                    if (json !== undefined) {
-                        if (json.length <= 0) {
-                            let emptyElement = addEmpty(document.createElement('div'), '20rem', '1.5rem');
-                            profileListsListingWrapper.append(emptyElement);
-                        } else {
-                            for (let i = 0; i < json.length; i++) {
-                                let listing = createListing(document.createElement('div'), json[i], 'cart');
-                                profileListsListingWrapper.append(listing);
-                            }
-                        }
-                    }
-                })
-        } catch (error) {
-            let emptyElement = addEmpty(document.createElement('div'), '20rem', '1.5rem');
-            profileListsListingWrapper.append(emptyElement);
-        }
-
-    }
-})
-
+showCartButton.addEventListener('click', loadCart);
 showLaterButton.addEventListener('click', loadLater);
 showWantedButton.addEventListener('click', loadWanted);
 
@@ -76,7 +44,7 @@ function createListing(cardElement, listing, sectionName) {
             <div class="flex flex-col col-span-2 mt-6 items-center">
               <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">${listing.precio}€</p>
               <button class="inline-block mb-2 ${sectionName}-to-trash justify-center items-center profile-listing-trash-button" data-value="${listing.id}" style="width: 50%;  z-index: 3"><i class="fa-solid fa-trash" style="color: white" data-value="${listing.id}"></i></button>
-              <button class="inline-block mb-2 ${sectionName}-to-cart justify-center items-center profile-listing-to-cart-button" data-value="${listing.id}" style="width: 50%; z-index: 3"><i class="fa-solid fa-cart-shopping" style="color: white" data-value="${listing.id}"></i></button>
+              <button class="inline-block mb-2 listing-to-cart justify-center items-center profile-listing-to-cart-button" data-value="${listing.id}" style="width: 50%; z-index: 3"><i class="fa-solid fa-cart-shopping" style="color: white" data-value="${listing.id}"></i></button>
             </div>
         </div>`;
 
