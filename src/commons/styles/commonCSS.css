@@ -19,6 +19,15 @@
   height: 2.5rem;
 }
 
+.truncate-lines-9 {
+  /* Number of lines to show before truncating */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 9;
+  /* Number of lines to show before truncating */
+}
+
 .truncate-lines-4 {
   /* Number of lines to show before truncating */
   overflow: hidden;
@@ -106,4 +115,24 @@
   top: 4rem;
   width: 25rem;
   padding: 1rem;
+}
+
+.listing-action-button {
+  z-index: 2;
+  background-color: #adc178;
+  border-radius: 10px;
+  border: #96a767 2px solid;
+  margin: 0;
+  height: auto;
+  width: 3rem !important;
+}
+
+.listing-later-button {
+  z-index: 2;
+  background-color: white;
+  border-radius: 10px;
+  border: darkgoldenrod 2px solid;
+  margin: 0 1rem;
+  height: auto;
+  width: 3rem !important;
 }

@@ -57,17 +57,22 @@
         <h3 class="text-lg font-semibold mb-2">Login</h3>
         <div class="mt-6 mb-2">
           <div class="mb-2">
-            <input id="login-email-input" type="email" placeholder="Email" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500">
+            <input id="login-nick-input" type="text" placeholder="Nick" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500">
           </div>
           <div class="mb-2">
             <input id="login-password-input" type="password" placeholder="Password" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500">
           </div>
         </div>
-        <a href="../buyer_register/buyer_register.html" style="text-decoration: underline">
-          ¿No tienes cuenta? Registrate
-        </a>
+        <!--
+        <div id="login-modal-error" style="color: #ff6961; font-weight: bold; text-align: center"></div>
+        -->
+        <div class="text-center">
+          <a href="../buyer_register/buyer_register.html" style="text-decoration: underline">
+            ¿No tienes cuenta? Registrate
+          </a>
+        </div>
         <div class="w-full flex justify-center mt-12">
-          <button class="w-1/2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:border-blue-700">Login</button>
+          <button id="login-modal-login-button" class="w-1/2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:border-blue-700">Login</button>
         </div>
       </div>
     </div>
@@ -91,6 +96,7 @@
 <!-- Scripts -->
 <script src="./productDetail.js" type="text/javascript"></script>
 <script src="../commons/scripts/loginModalScript.js" type="text/javascript"></script>
+<script src="../commons/scripts/cartModalScript.js" type="text/javascript"></script>
 </body>
 <footer class="footer">
   <div class="grid grid-cols-2">

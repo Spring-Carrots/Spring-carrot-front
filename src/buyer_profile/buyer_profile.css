@@ -20,3 +20,25 @@
     font-size: 1.5rem;
     font-weight: bold;
 }
+
+.profile-listing-trash-button {
+    z-index: 2;
+    background-color: #ff6961;
+    border-radius: 10px;
+    border: #de5a53 2px solid;
+}
+
+.profile-listing-to-cart-button {
+    z-index: 2;
+    background-color: #adc178;
+    border-radius: 10px;
+    border: #96a767 2px solid;
+}
+
+#make-order-button {
+    padding: 0.25rem 0.5rem;
+    background-color: #adc178;
+    color: white;
+    border-radius: 10px;
+    border: #96a767 1px solid;
+}

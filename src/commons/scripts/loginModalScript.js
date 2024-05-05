@@ -21,7 +21,6 @@ let passwordInput = document.getElementById('login-password-input');
 let loginButton = document.getElementById('login-modal-login-button');
 
 loginButton.addEventListener('click', async () => {
-    console.log(`http://localhost:5237/api/Api/login/${nickInput.value}/${passwordInput.value}`);
     await fetch(new Request(`http://localhost:5237/api/Api/login/${nickInput.value}/${passwordInput.value}`))
         .then(res=> {
             if (res.status < 200 || (res.status >= 300 && res.status < 700)) {
