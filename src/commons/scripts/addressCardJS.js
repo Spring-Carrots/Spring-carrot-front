@@ -3,6 +3,7 @@ let addressCardsWrapper = document.getElementById('address-cards-wrapper');
 function appendUserAddressCard(addressInfo) {
     let addressCard = document.createElement('div');
     buyerProfileInforCardClasses(addressCard);
+    addressCard.classList.add('address-info-card');
 
     addressCard.style.borderRadius = "1.5rem";
     addressCard.style.backgroundColor = "white";

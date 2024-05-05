@@ -3,6 +3,7 @@ let paymentCardsWrapper = document.getElementById('payment-cards-wrapper');
 function appendPaymentMethodCard(cardInfo) {
     let paymentCard = document.createElement('div');
     buyerProfileInforCardClasses(paymentCard);
+    paymentCard.classList.add('payment-info-card');
 
     paymentCard.style.borderRadius = "1.5rem";
     paymentCard.style.backgroundColor = "white";
