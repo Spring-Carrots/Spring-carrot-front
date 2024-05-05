@@ -15,3 +15,11 @@ img {
 #make-order-button:hover {
     background-color: #ADC178;
 }
+
+.selected-address-card {
+    border: #927259 2px solid;
+}
+
+.selected-payment-card {
+    border: #96a767 2px solid;
+}

@@ -17,86 +17,130 @@ appendPaymentMethodCard({
     holder: "Josefa Manolo",
     cardNumber: "ES** **** **** **** 1234",
     expiryDate: "03/28"
-})
+});
 
 let orderItemsWrapper = document.getElementById('order-items-wrapper');
 
+let loggedUser = sessionStorage.getItem('logged-user');
+loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
 
-function orderListingUpdate(itemsArray) {
+orderListingUpdate();
+
+async function orderListingUpdate() {
     orderItemsWrapper.innerHTML = '';
-    let totalAmount = 0;
+    let total = 0;
 
-    for (let i = 0; i < itemsArray.length; i++) {
-        totalAmount += itemsArray.amount * itemsArray.price;
+    await fetch(`http://localhost:5237/api/Api/obtener-carrito/${loggedUser.id}`)
+        .then(res=> res.json())
+        .then((json) => {
+            if (json !== undefined) {
+                if (json.length <= 0) {
+                    let emptyElement = addEmpty(document.createElement('div'), '20rem', '1.5rem');
+                    profileListsListingWrapper.append(emptyElement);
+                } else {
+                    for (let i = 0; i < json.length; i++) {
+                        let listing = getListingsCart(document.createElement('div'), json[i]);
+                        orderItemsWrapper.append(listing);
+                        total += json[i].item1.precio * json[i].item2;
+                    }
 
-        let orderItemCard = document.createElement('div');
-        orderItemCard.id = `item-${itemsArray[i].id}-card`;
-        listingCardClasses(orderItemCard);
+                    document.getElementById('total-amount-text').innerText = `Total: ${total.toFixed(2)} €`;
 
-        orderItemCard.innerHTML = `
-            <div class="object-cover rounded-l-lg col-span-1 " style="object-position: 50% 50%; text-align: center">
-              <img class="rounded-l-lg" src="${itemsArray[i].image}" style="margin: 0 auto; display: block">
+                    loadMakeOrderListener();
+                }
+            }
+        })
+}
+
+function getListingsCart(cardElement, listing) {
+    cardElement.classList.add('rounded-lg');
+    cardElement.classList.add('shadow-lg');
+    cardElement.style.margin = '2rem';
+    cardElement.style.width = '100%';
+    cardElement.innerHTML = `
+        <div class="grid grid-cols-12 gap-2 listing-card" data-href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=l9b8sppmmoqv4418ujei8ivt66&_ij_reload=RELOAD_ON_SAVE&id=${listing.id}">
+            <div class="h-80 col-span-4" style="overflow: hidden; display: flex; justify-content: center; align-items: center">
+              <img class="w-full object-cover rounded-l-lg" src="${listing.item1.foto1}" alt="White T-shirt" style="width: auto; height: 100%; object-fit: cover">
             </div>
-            <div class="mt-2 mb-2 grid grid-cols-3 col-span-3">
-               <div class="grid grid-rows-5 col-span-2">
-                   <div class="flex flex-col row-span-4">
-                      <h6 class="font-bold">${itemsArray[i].title}</h6>
-                      <p class="truncate-lines-4">${itemsArray[i].description}</p>
-                    </div>
-                    <div class="row-span-1 flex flex-row">
-                        <h3 style="font-weight: bold; bottom: 0">${itemsArray[i].price}€ x ${itemsArray[i].amount} = </h3>
-                        <h2 style="font-weight: bold; font-size: 1.5rem; bottom: 0">${itemsArray[i].price * itemsArray[i].amount}€</h2>
-                    </div>
-                </div>
-                <div class="flex flex-row items-center ml-1 mr-2">
-                  <input type="number" class="cart-listing block border-0 w-10 h-6" min="0" value="${itemsArray[i].amount}">
-                  <button class="inline-block ml-2 justify-center items-center w-8 h-8 rounded-lg order-item-delete" style="background-color: #f50538">
-                    <i class="fa-solid fa-trash-can order-item-trash-can" style="color: #ffffff;"></i>
-                  </button>
-                </div>
+            <div class="px-6 py-4 col-span-6" style="min-height: 15rem">
+              <div class="font-bold text-xl mb-2 truncate-lines-2">${listing.item1.nombre}</div>
+              <p class="text-gray-700 text-base truncate-lines-9">
+              ${listing.item1.descripcion}
+              </p>
             </div>
-        `;
+            <div class="flex flex-col col-span-2 mt-6 items-center">
+              <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">Cantidad: ${listing.item2}</p>
+              <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">${listing.item1.precio}€</p>
+              <!--<p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">Total: ${listing.item2 * listing.item1.precio}€</p>-->
+              <!--<button class="inline-block mb-2 order-listing-to-trash justify-center items-center profile-listing-trash-button" data-value="${listing.item1.id}" style="width: 50%;  z-index: 3"><i class="fa-solid fa-trash" style="color: white" data-value="${listing.item1.id}"></i></button>-->
+            </div>
+        </div>`;
 
-        orderItemsWrapper.append(orderItemCard);
+    return cardElement;
+}
+
+function loadMakeOrderListener() {
+    let makeOrderButton = document.getElementById('make-order-button');
+
+    makeOrderButton.addEventListener('click', async () => {
+        await fetch(`http://localhost:5237/api/Api/realizar-pedido/${loggedUser.id}`, {
+            method: 'POST'
+        })
+            .then(res=> res.ok)
+            .then((status) => {
+                if (status === true) {
+                    let orderDataWrapper = document.getElementById('order-data-wrapper');
+                    orderDataWrapper.innerHTML = ''
+
+                    let successMessage = document.createElement('div');
+                    successMessage.classList.add('flex');
+                    successMessage.classList.add('flex-col');
+                    successMessage.classList.add('items-center');
+                    successMessage.style.margin = '6rem 0';
+
+                    successMessage.innerHTML = `
+                        <img src="https://img.freepik.com/free-vector/box-carrots-white-background_1308-38269.jpg" style="width: 30rem; height: 25rem; margin: 2rem">
+                        <h1 style="font-weight: lighter; font-size: 2rem; margin: 2rem 0">Pedido realizado correctamente!</h1>
+                    `
+
+                    orderDataWrapper.append(successMessage);
+                }
+            })
+    })
+}
+
+function addPaymentCardsListeners() {
+    let paymentCards = document.getElementsByClassName('address-info-card');
+
+    for (let i = 0; i < paymentCards.length; i++) {
+        let currentPaymentCard = paymentCards[i];
+
+        paymentCards[i].addEventListener('click', () => {
+            let addressCards = document.getElementsByClassName('address-info-card');
+
+            for (let j = 0; j < addressCards.length; j++) {
+                addressCards[i].classList.remove('selected-payment-card');
+            }
+
+            currentPaymentCard.classList.add('selected-payment-card');
+        });
     }
 }
 
-function listingCardClasses(htmlElement) {
-    htmlElement.classList.add('rounded-lg');
-    htmlElement.classList.add('shadow-lg');
-    htmlElement.classList.add('grid');
-    htmlElement.classList.add('grid-cols-4');
-    htmlElement.classList.add('gap-2');
-    htmlElement.classList.add('overflow-hidden');
-    htmlElement.classList.add('mb-1');
-    htmlElement.classList.add('mt-1');
-}
+function addAddressCardsListeners() {
+    let addressCards = document.getElementsByClassName('address-info-card');
 
-let orderListings = [
-    {
-        id: 1,
-        image: 'https://cdn.dummyjson.com/product-images/2/1.jpg',
-        title: 'iPhone X',
-        description: 'SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with a new generation of Apple Silicon',
-        amount: 1,
-        price: 32.00
-    },
-    {
-        id: 2,
-        image: 'https://cdn.dummyjson.com/product-images/4/1.jpg',
-        title: 'OPPOF19',
-        description: 'New OPPO F19 unveiled in 2023, with the newest Tensor cores and Snapdragon 898',
-        amount: 1,
-        price: 10.00
-    },
-    {
-        id: 3,
-        image: 'https://cdn.dummyjson.com/product-images/8/1.jpg',
-        title: 'Microsoft Surface Laptop 4',
-        description: 'Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.',
-        amount: 2,
-        price: 5.00
+    for (let i = 0; i < addressCards.length; i++) {
+        let currentAddressCard = addressCards[i];
+
+        addressCards[i].addEventListener('click', () => {
+            let addressCards = document.getElementsByClassName('address-info-card');
+
+            for (let j = 0; j < addressCards.length; j++) {
+                addressCards[i].classList.remove('selected-address-card');
+            }
+
+            currentAddressCard.classList.add('selected-address-card');
+        });
     }
-]; // TODO REMOVE WHEN CONNECTED TO BD
-
-orderListingUpdate(orderListings)
+}
