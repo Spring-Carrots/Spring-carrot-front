@@ -1,6 +1,7 @@
 async function loadLater() {
     if (loggedUser !== null) {
         profileListsListingWrapper.innerHTML = '';
+        document.getElementById('make-order-button-wrapper').innerHTML = '';
         mainProfileSection.hidden = true;
         listsHeaderWrapper.innerHTML = `
             <i class="fa-solid fa-list" style="color: #adc178; font-size: 2rem; margin-right: 1rem"></i>
@@ -26,6 +27,7 @@ async function loadLater() {
 
                         deleteLaterListeners();
                         setListingCardListeners();
+                        toCartListener();
                     }
                 }
             })

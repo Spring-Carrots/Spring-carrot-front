@@ -6,6 +6,7 @@ async function loadCart() {
             <i class="fa-solid fa-cart-shopping" style="color: #adc178; font-size: 2rem; margin-right: 1rem"></i>
             <h2 id="catalog-section-header" style="font-weight: bold">Carrito</h2>
         `;
+        let makeOrderButtonWrapper = document.getElementById('make-order-button-wrapper');
         profileListsWrapper.hidden = false;
         try {
             await fetch(`http://localhost:5237/api/Api/obtener-carrito/${loggedUser.id}`)
@@ -25,7 +26,7 @@ async function loadCart() {
                             makeOrderButton.innerText = 'Realizar pedido';
                             makeOrderButton.id = 'make-order-button';
 
-                            profileListsWrapper.append(makeOrderButton);
+                            makeOrderButtonWrapper.append(makeOrderButton);
 
                             makeOrderButton.addEventListener('click', () => {
                                 window.location.href = 'http://localhost:63342/SpringCarrot/src/order_view/user_order.html?_ijt=3h663rvnvi6icovpat08qu0tl0&_ij_reload=RELOAD_ON_SAVE';

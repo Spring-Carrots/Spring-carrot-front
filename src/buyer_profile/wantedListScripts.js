@@ -1,6 +1,7 @@
 async function  loadWanted() {
     if (loggedUser !== null) {
         profileListsListingWrapper.innerHTML = '';
+        document.getElementById('make-order-button-wrapper').innerHTML = '';
         mainProfileSection.hidden = true;
         listsHeaderWrapper.innerHTML = `
             <i class="fa-solid fa-star" style="color: #adc178; font-size: 2rem; margin-right: 1rem"></i>
@@ -26,6 +27,7 @@ async function  loadWanted() {
 
                         setListingCardListeners();
                         deleteWantedListeners();
+                        toCartListener();
                     }
                 }
             })
