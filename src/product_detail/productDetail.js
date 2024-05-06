@@ -15,6 +15,7 @@ let product = JSON.parse(localStorage.getItem(`local-prod-${productId}`));
 
 loadImage([product.foto1, product.foto2, product.foto3]);
 loadDetails(product);
+toLaterListener();
 
 function loadImage (urlArray) {
     let imageWrapper = document.getElementById('listing-picture-wrapper');
@@ -35,6 +36,7 @@ function loadDetails(productJSON) {
         <p class="col-span-6" style="font-size: 1.5rem; font-weight: lighter; text-decoration: underline">${productJSON.precio}€</p>
         <div class=" col-span-6 flex flex-row-reverse">
             <button class="inline-block mr-2 mb-2 listing-add-to-cart justify-center items-center"><i class="fa-solid fa-cart-shopping" style="color: white" data-value="${productJSON.id}"></i></button>
+            <button class="inline-block mr-2 mb-2 justify-center items-center" id="listing-add-to-later"><i class="fa-solid fa-clock" style="color: white" data-value="${productJSON.id}"></i></button>
             <button class="inline-block mr-2 mb-2 listing-add-to-list justify-center items-center"><i class="fa-solid fa-star" style="color: goldenrod" data-value="${productJSON.id}"></i></button>
         </div>
         </div>
