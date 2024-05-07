@@ -11,7 +11,7 @@ function loadListingsFromDB() {
                 listing.innerHTML = `
                 <div class="listing-card" data-href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=l9b8sppmmoqv4418ujei8ivt66&_ij_reload=RELOAD_ON_SAVE&id=${json[i].id}">
                     <div class="h-80" style="overflow: hidden; display: flex; justify-content: center; align-items: center">
-                      <img class="w-full object-cover rounded-t-lg" src="${json[i].foto1}" alt="White T-shirt" style="width: auto; height: 100%; object-fit: cover">
+                      <img class="object-cover rounded-t-lg" src="${json[i].foto1}" alt="White T-shirt" style="width: 100%; height: 100%; object-fit: cover">
                     </div>
                     <div class="px-6 py-4" style="min-height: 15rem">
                       <div class="font-bold text-xl mb-2 truncate-lines-2">${json[i].nombre}</div>
