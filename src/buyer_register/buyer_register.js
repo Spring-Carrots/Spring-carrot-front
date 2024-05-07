@@ -13,7 +13,7 @@ const form = document.getElementById("user-register-form");
 const registryErrorModal = document.getElementById("error-modal");
 const modalContent = document.getElementById("modal-content");
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     // Validation checks
@@ -24,6 +24,7 @@ form.addEventListener("submit", function (event) {
     const emailRepeat = document.getElementById("email-repeat").value.trim();
     const password = document.getElementById("password").value.trim();
     const passwordRepeat = document.getElementById("password-repeat").value.trim();
+    const spendLimit = document.getElementById("spendLimit").value.trim();
 
     let errorMessage = "";
 
@@ -45,10 +46,16 @@ form.addEventListener("submit", function (event) {
 
         setTimeout(function() {
             fadeOut(registryErrorModal);
-        }, 1250);
+        }, 1500);
     } else {
-        // If all validations pass, you can submit the form here
-        // form.submit(); // Uncomment this line to submit the form
+        console.log('awaiting');
+        await fetch(`http://localhost:5237/api/Api/registroglobal/${name}/${nick}/${password}/${email}/18/${spendLimit}`, {
+            method: 'POST'
+        }).then((res) => {
+            if (res.ok) {
+                window.location.href = 'http://localhost:63342/SpringCarrot/src/landing_page/landing_page.html';
+            }
+        })
     }
 });
 
@@ -59,10 +66,10 @@ function fadeOut(element) {
             clearInterval(fadeInterval);
             element.style.display = "none";
         } else {
-            opacity -= 0.1;
+            opacity -= 0.01;
             element.style.opacity = opacity;
         }
-    }, 100);
+    }, 10);
 }
 
 // Close the modal when the user clicks anywhere outside of it
