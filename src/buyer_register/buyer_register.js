@@ -53,7 +53,7 @@ form.addEventListener("submit", async function (event) {
             method: 'POST'
         }).then((res) => {
             if (res.ok) {
-                window.location.href = 'http://localhost:63342/SpringCarrot/src/landing_page/landing_page.html';
+                window.location.href = '../landing_page/landing_page.html';
             }
         })
     }

@@ -1,0 +1,98 @@
+.order-state-body {
+    margin: 0.25rem 2rem;
+}
+
+#back-to-profile-button {
+    font-weight: bold;
+}
+
+#status-line {
+    left: 5%;
+    top: 50%;
+    position: relative;
+    width: 90%;
+    height: 1.25rem;
+    background-color: #ACC078;
+    border-radius: 10px;
+}
+
+#status-wrapper {
+    margin: 2rem 0 3rem 0;
+}
+
+.order-state-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order-state-header {
+    margin: 2rem 0;
+}
+
+.circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: #adc178;
+}
+
+.state-wrapper {
+    display: flex;
+    top: 5%;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+.state-wrapper:nth-child(1) {
+    left: 7.5%; /* Position of the first circle */
+}
+
+.state-wrapper:nth-child(2) {
+    left: 32.5%; /* Position of the second circle */
+}
+
+.state-wrapper:nth-child(3) {
+    left: 57.5%; /* Position of the third circle */
+}
+
+.state-wrapper:nth-child(4) {
+    left: 87.5%; /* Position of the fourth circle */
+}
+
+.status-text {
+    margin-top: 1rem;
+    width: 6rem;
+    text-align: center;
+}
+
+.status-icon {
+    margin-bottom: 1rem;
+    font-size: 4rem;
+    position: relative;
+    text-align: center;
+}
+
+#progress-line{
+    background-color: white;
+    border-radius: 10px;
+    height: 0.5rem;
+
+    z-index: 2;
+    position: relative;
+    top: 27.5%;
+    left: 0.5%;
+}
+
+.inner-circle {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: white;
+}

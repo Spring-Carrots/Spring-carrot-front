@@ -29,7 +29,7 @@ async function loadCart() {
                             makeOrderButtonWrapper.append(makeOrderButton);
 
                             makeOrderButton.addEventListener('click', () => {
-                                window.location.href = 'http://localhost:63342/SpringCarrot/src/order_view/user_order.html?_ijt=3h663rvnvi6icovpat08qu0tl0&_ij_reload=RELOAD_ON_SAVE';
+                                window.location.href = '../order_view/user_order.html';
                             })
                         }
                     }

@@ -20,9 +20,11 @@ let nickInput = document.getElementById('login-nick-input');
 let passwordInput = document.getElementById('login-password-input');
 let loginButton = document.getElementById('login-modal-login-button');
 
-loginButton.addEventListener('click', async () => {
+loginButton.addEventListener('click', login);
+
+async function login() {
     await fetch(new Request(`http://localhost:5237/api/Api/login/${nickInput.value}/${passwordInput.value}`))
-        .then(res=> {
+        .then(res => {
             if (res.status < 200 || (res.status >= 300 && res.status < 700)) {
                 //document.getElementById('login-modal-error').innerText = 'Datos incorrectos!!'
             } else if (res.ok) {
@@ -31,13 +33,13 @@ loginButton.addEventListener('click', async () => {
             }
         })
         .then((json) => {
-           if (json !== undefined) {
-               sessionStorage.setItem('logged-user', JSON.stringify(json));
-               updateUserIconListener();
-               userModal.classList.add('hidden');
-           }
+            if (json !== undefined) {
+                sessionStorage.setItem('logged-user', JSON.stringify(json));
+                updateUserIconListener();
+                userModal.classList.add('hidden');
+            }
         })
-})
+}
 
 function updateUserIconListener() {
     let loggedUser = sessionStorage.getItem('logged-user');
