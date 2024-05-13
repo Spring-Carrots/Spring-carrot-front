@@ -43,3 +43,34 @@ img {
   height: 1.5rem;
   width: 1.5rem;
 }
+
+.section-card {
+  margin: 0 1.25rem;
+  height: 25rem;
+  min-height: 25rem;
+  width: 16.5rem;
+  min-width: 16.5rem;
+  overflow: hidden;
+  border-radius: 0.25rem;
+}
+
+#categories-section-wrapper {
+  overflow: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.75rem;
+}
+
+#categories-section-wrapper::-webkit-scrollbar {
+  width: 30px;
+  height: 15px;
+  border-radius: 5px;
+  background-color: #eef3e4;
+}
+
+#categories-section-wrapper::-webkit-scrollbar-thumb {
+  width: 10px;
+  height: 10px;
+  background-color: #adc178;
+  border-radius: 5px;
+}
