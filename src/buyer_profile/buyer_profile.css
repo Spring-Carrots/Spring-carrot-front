@@ -35,6 +35,21 @@
     border: #96a767 2px solid;
 }
 
+.profile-listing-add-button {
+    background-color: white;
+    border-radius: 10px;
+    border: #96a767 3px solid;
+    width: 45%;
+    margin-left: 10%;
+}
+
+.profile-listing-substract-button {
+    background-color: white;
+    border-radius: 10px;
+    border: #A98467 3px solid;
+    width: 45%;
+}
+
 #make-order-button {
     padding: 0.25rem 0.5rem;
     background-color: #adc178;

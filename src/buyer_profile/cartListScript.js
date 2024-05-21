@@ -1,3 +1,7 @@
+let deleteButtons = document.getElementsByClassName('profile-listing-trash-button');
+let addButtons = document.getElementsByClassName('profile-listing-add-button');
+let substractButtons = document.getElementsByClassName('profile-listing-substract-button');
+
 async function loadCart() {
     if (loggedUser !== null) {
         profileListsListingWrapper.innerHTML = '';
@@ -7,6 +11,7 @@ async function loadCart() {
             <h2 id="catalog-section-header" style="font-weight: bold">Carrito</h2>
         `;
         let makeOrderButtonWrapper = document.getElementById('make-order-button-wrapper');
+        makeOrderButtonWrapper.innerHTML = '';
         profileListsWrapper.hidden = false;
         try {
             await fetch(`http://localhost:5237/api/Api/obtener-carrito/${loggedUser.id}`)
@@ -61,10 +66,73 @@ function createCartListing(cardElement, listing, sectionName) {
               </p>
             </div>
             <div class="flex flex-col col-span-2 mt-6 items-center">
-              <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">${listing.item1.precio}€</p>
+            <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">Cantidad: ${listing.item2}</p>
+            <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">${listing.item1.precio}€</p>
               <button class="inline-block mb-2 ${sectionName}-to-trash justify-center items-center profile-listing-trash-button" data-value="${listing.item1.id}" style="width: 50%;  z-index: 3"><i class="fa-solid fa-trash" style="color: white" data-value="${listing.item1.id}"></i></button>
+              <div class="flex flex-row items-center justify-center content-center" style="width: 50%">
+                <button class="inline-block mb-2 ${sectionName}-substract justify-center items-center profile-listing-substract-button" data-value="${listing.item1.id}" style=z-index: 3"><i class="fa-solid fa-square-minus" style="color: #A98467" data-value="${listing.item1.id}"></i></button>
+                <button class="inline-block mb-2 ${sectionName}-add justify-center items-center profile-listing-add-button" data-value="${listing.item1.id}" style="z-index: 3"><i class="fa-solid fa-square-plus" style="color: #adc178" data-value="${listing.item1.id}"></i></button>
+              </div>
             </div>
         </div>`;
 
     return cardElement;
+}
+
+function addProfileCartListeners() {
+    deleteButtons = document.getElementsByClassName('profile-listing-trash-button');
+    addButtons = document.getElementsByClassName('profile-listing-add-button');
+    substractButtons = document.getElementsByClassName('profile-listing-substract-button');
+
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', async (event) => {
+            let loggedUser = sessionStorage.getItem('logged-user');
+            loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
+
+            let listingId = event.target.getAttribute('data-value');
+
+            await fetch(`http://localhost:5237/api/Api/eliminar-producto-a-carrito/${loggedUser.id}/${listingId}`, {
+                method: 'POST'
+            }).then(res => {
+                if (res.ok) {
+                    reloadList();
+                }
+            })
+        });
+
+        addButtons[i].addEventListener('click', async (event) => {
+            let loggedUser = sessionStorage.getItem('logged-user');
+            loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
+
+            let listingId = event.target.getAttribute('data-value');
+
+            await fetch(`http://localhost:5237/api/Api/agregar-producto-a-carrito/${loggedUser.id}/${listingId}/1`, {
+                method: 'POST'
+            }).then(res => {
+                if (res.ok) {
+                    reloadList();
+                }
+            })
+        })
+
+        substractButtons[i].addEventListener('click', async (event) => {
+            let loggedUser = sessionStorage.getItem('logged-user');
+            loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
+
+            let listingId = event.target.getAttribute('data-value');
+
+            await fetch(`http://localhost:5237/api/Api/agregar-producto-a-carrito/${loggedUser.id}/${listingId}/-1`, {
+                method: 'POST'
+            }).then(res => {
+                if (res.ok) {
+                    reloadList();
+                }
+            })
+        })
+    }
+}
+
+async function reloadList() {
+    await loadCart();
+    addProfileCartListeners();
 }

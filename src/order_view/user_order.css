@@ -23,3 +23,25 @@ img {
 .selected-payment-card {
     border: #96a767 2px solid;
 }
+
+.order-trash-button {
+    z-index: 2;
+    background-color: #ff6961;
+    border-radius: 10px;
+    border: #de5a53 2px solid;
+}
+
+.order-add-button {
+    background-color: white;
+    border-radius: 10px;
+    border: #96a767 3px solid;
+    width: 45%;
+    margin-left: 10%;
+}
+
+.order-substract-button {
+    background-color: white;
+    border-radius: 10px;
+    border: #A98467 3px solid;
+    width: 45%;
+}

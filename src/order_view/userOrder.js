@@ -19,12 +19,16 @@ appendPaymentMethodCard({
     expiryDate: "03/28"
 });
 
+let deleteButtons = document.getElementsByClassName('profile-listing-trash-button');
+let addButtons = document.getElementsByClassName('profile-listing-add-button');
+let substractButtons = document.getElementsByClassName('profile-listing-substract-button');
+
 let orderItemsWrapper = document.getElementById('order-items-wrapper');
 
 let loggedUser = sessionStorage.getItem('logged-user');
 loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
 
-orderListingUpdate();
+reloadOrderList();
 
 async function orderListingUpdate() {
     orderItemsWrapper.innerHTML = '';
@@ -71,6 +75,11 @@ function getListingsCart(cardElement, listing) {
             <div class="flex flex-col col-span-2 mt-6 items-center">
               <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">Cantidad: ${listing.item2}</p>
               <p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">${listing.item1.precio}€</p>
+              <button class="inline-block mb-2 justify-center items-center order-trash-button" data-value="${listing.item1.id}" style="width: 50%;  z-index: 3"><i class="fa-solid fa-trash" style="color: white" data-value="${listing.item1.id}"></i></button>
+              <div class="flex flex-row items-center justify-center content-center" style="width: 50%">
+                <button class="inline-block mb-2 justify-center items-center order-substract-button" data-value="${listing.item1.id}" style=z-index: 3"><i class="fa-solid fa-square-minus" style="color: #A98467" data-value="${listing.item1.id}"></i></button>
+                <button class="inline-block mb-2 justify-center items-center order-add-button" data-value="${listing.item1.id}" style="z-index: 3"><i class="fa-solid fa-square-plus" style="color: #adc178" data-value="${listing.item1.id}"></i></button>
+              </div>
               <!--<p style="font-size: 1.15rem; font-weight: bold; text-align: center; margin-right: 0.5rem; overflow-wrap: break-word">Total: ${listing.item2 * listing.item1.precio}€</p>-->
               <!--<button class="inline-block mb-2 order-listing-to-trash justify-center items-center profile-listing-trash-button" data-value="${listing.item1.id}" style="width: 50%;  z-index: 3"><i class="fa-solid fa-trash" style="color: white" data-value="${listing.item1.id}"></i></button>-->
             </div>
@@ -107,6 +116,64 @@ function loadMakeOrderListener() {
                 }
             })
     })
+}
+
+function addOrderListeners() {
+    deleteButtons = document.getElementsByClassName('order-trash-button');
+    addButtons = document.getElementsByClassName('order-add-button');
+    substractButtons = document.getElementsByClassName('order-substract-button');
+
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', async (event) => {
+            let loggedUser = sessionStorage.getItem('logged-user');
+            loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
+
+            let listingId = event.target.getAttribute('data-value');
+
+            await fetch(`http://localhost:5237/api/Api/eliminar-producto-a-carrito/${loggedUser.id}/${listingId}`, {
+                method: 'POST'
+            }).then(res => {
+                if (res.ok) {
+                    reloadOrderList();
+                }
+            })
+        });
+
+        addButtons[i].addEventListener('click', async (event) => {
+            let loggedUser = sessionStorage.getItem('logged-user');
+            loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
+
+            let listingId = event.target.getAttribute('data-value');
+
+            await fetch(`http://localhost:5237/api/Api/agregar-producto-a-carrito/${loggedUser.id}/${listingId}/1`, {
+                method: 'POST'
+            }).then(res => {
+                if (res.ok) {
+                    reloadOrderList();
+                }
+            })
+        })
+
+        substractButtons[i].addEventListener('click', async (event) => {
+            let loggedUser = sessionStorage.getItem('logged-user');
+            loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
+
+            let listingId = event.target.getAttribute('data-value');
+
+            await fetch(`http://localhost:5237/api/Api/agregar-producto-a-carrito/${loggedUser.id}/${listingId}/-1`, {
+                method: 'POST'
+            }).then(res => {
+                if (res.ok) {
+                    reloadOrderList();
+                }
+            })
+        })
+    }
+}
+
+async function reloadOrderList() {
+    await orderListingUpdate();
+    addOrderListeners();
 }
 
 function addPaymentCardsListeners() {

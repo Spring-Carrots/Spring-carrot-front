@@ -14,7 +14,10 @@ let closeListButton = document.getElementById('close-list-button');
 loggedUser = sessionStorage.getItem('logged-user');
 loggedUser = loggedUser === null ? null : JSON.parse(loggedUser);
 
-showCartButton.addEventListener('click', loadCart);
+showCartButton.addEventListener('click', async () => {
+    await loadCart();
+    addProfileCartListeners();
+});
 showLaterButton.addEventListener('click', loadLater);
 showWantedButton.addEventListener('click', loadWanted);
 
