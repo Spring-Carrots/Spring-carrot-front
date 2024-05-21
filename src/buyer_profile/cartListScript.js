@@ -17,10 +17,15 @@ async function loadCart() {
                             let emptyElement = addEmpty(document.createElement('div'), '20rem', '1.5rem');
                             profileListsListingWrapper.append(emptyElement);
                         } else {
+                            let totalAmount = 0;
                             for (let i = 0; i < json.length; i++) {
+                                totalAmount += json[i].item1.precio * json[i].item2;
                                 let listing = createCartListing(document.createElement('div'), json[i], 'cart');
                                 profileListsListingWrapper.append(listing);
                             }
+
+                            let cartTotalElement = document.getElementById('total-amount');
+                            cartTotalElement.innerText = `Total: ${totalAmount} €`;
 
                             let makeOrderButton = document.createElement('button');
                             makeOrderButton.innerText = 'Realizar pedido';
