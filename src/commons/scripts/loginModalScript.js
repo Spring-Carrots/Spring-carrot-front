@@ -26,9 +26,9 @@ async function login() {
     await fetch(new Request(`http://localhost:5237/api/Api/login/${nickInput.value}/${passwordInput.value}`))
         .then(res => {
             if (res.status < 200 || (res.status >= 300 && res.status < 700)) {
-                //document.getElementById('login-modal-error').innerText = 'Datos incorrectos!!'
+                document.getElementById('login-modal-error').innerText = 'Datos incorrectos!!'
             } else if (res.ok) {
-                //document.getElementById('login-modal-error').innerText = '';
+                document.getElementById('login-modal-error').innerText = '';
                 return res.json();
             }
         })
@@ -36,7 +36,15 @@ async function login() {
             if (json !== undefined) {
                 sessionStorage.setItem('logged-user', JSON.stringify(json));
                 updateUserIconListener();
-                userModal.classList.add('hidden');
+
+                userModal.innerHTML = `
+                <div class="flex flex-col justify-center items-center">
+                  <i class="fa-solid fa-circle-check" style="color: #96a767; font-size: 4rem"></i>
+                  <h1 style="font-size: 1.25rem; font-weight: bold">Bienvenido de vuelta!</h1>
+                </div>
+                `;
+
+                setTimeout(() => {userModal.classList.add('hidden')}, 1500);
             }
         })
 }
