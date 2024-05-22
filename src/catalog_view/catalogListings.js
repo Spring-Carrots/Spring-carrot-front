@@ -14,7 +14,7 @@ function loadListingsFromDB(searchTerm) {
                 listing.classList.add('rounded-lg');
                 listing.classList.add('shadow-lg');
                 listing.innerHTML = `
-                <div class="listing-card" data-href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=l9b8sppmmoqv4418ujei8ivt66&_ij_reload=RELOAD_ON_SAVE&id=${json[i].id}">
+                <div class="listing-card" data-href="http://localhost:63343/SpringCarrot/src/product_detail/listingDetail.html?_ijt=4pl8tcfb5iqs9ocd08o3tf9e42&_ij_reload=RELOAD_ON_SAVE&id=${json[i].id}">
                     <div class="h-80" style="overflow: hidden; display: flex; justify-content: center; align-items: center">
                       <img class="w-full object-cover rounded-t-lg" src="${json[i].foto1}" alt="White T-shirt" style="width: 100%; height: 100%; object-fit: cover">
                     </div>
