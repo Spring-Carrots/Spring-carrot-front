@@ -62,7 +62,7 @@ function getListingsCart(cardElement, listing) {
     cardElement.style.margin = '2rem 0';
     cardElement.style.width = '100%';
     cardElement.innerHTML = `
-        <div class="grid grid-cols-12 gap-2 listing-card" data-href="http://localhost:63342/SpringCarrot/src/product_detail/listingDetail.html?_ijt=l9b8sppmmoqv4418ujei8ivt66&_ij_reload=RELOAD_ON_SAVE&id=${listing.id}">
+        <div class="grid grid-cols-12 gap-2 listing-card" data-product-id="${listing.id}">
             <div class="h-80 col-span-4" style="overflow: hidden; display: flex; justify-content: center; align-items: center">
               <img class="w-full object-cover rounded-l-lg" src="${listing.item1.foto1}" alt="White T-shirt" style="width: auto; height: 100%; object-fit: cover">
             </div>

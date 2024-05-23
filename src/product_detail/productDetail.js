@@ -1,16 +1,6 @@
-const windowHref = window.location.href;
-let productId = windowHref.substring(windowHref.indexOf('id=')).replace('id=', '');
+let productId = localStorage.getItem('listingDetailId');
+console.log(productId);
 
-let productFetchURL = `https://dummyjson.com/products/${productId}`;
-/**
-fetch(productFetchURL)
-    .then(res => res.json())
-    .then((json) => {
-        console.log(json);
-        loadImage(json.images);
-        loadDetails(json);
-    });
-    */
 let product = JSON.parse(localStorage.getItem(`local-prod-${productId}`));
 
 loadImage([product.foto1, product.foto2, product.foto3]);
