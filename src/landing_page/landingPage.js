@@ -1,9 +1,13 @@
 let listingsWrapper = document.getElementById('listings-wrapper');
 
-function loadListingsFromDB() {
-    fetch('http://localhost:5237/api/Api/productos')
+async function loadListingsFromDB() {
+    document.getElementById('loading-message').hidden = false;
+
+    await fetch('http://localhost:5237/api/Api/productos')
         .then(res=>res.json())
         .then((json) => {
+            document.getElementById('loading-message').hidden = true;
+
             for (let i = 0; i < 8; i++) {
                 let listing = document.createElement('div');
                 listing.classList.add('rounded-lg');

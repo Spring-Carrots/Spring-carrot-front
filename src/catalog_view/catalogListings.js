@@ -3,12 +3,16 @@ let currentPage = 0;
 let lastPage = Number(document.getElementById('total-page-span').innerText) - 1;
 
 function loadListingsFromDB(searchTerm) {
+    document.getElementById('loading-message').hidden = false;
+
     listingsWrapper.innerHTML = '';
     searchTerm = searchTerm === undefined ? '' : searchTerm;
     let requestURL = `http://localhost:5237/api/Api/productos${searchTerm}`;
     fetch(requestURL)
         .then(res=> res.json())
         .then((json) => {
+            document.getElementById('loading-message').hidden = true;
+
             for (let i = 0; i < 24 && i < json.length; i++) {
                 let listing = document.createElement('div');
                 listing.classList.add('rounded-lg');
