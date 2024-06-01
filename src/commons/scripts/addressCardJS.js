@@ -4,6 +4,7 @@ function appendUserAddressCard(addressInfo) {
     let addressCard = document.createElement('div');
     buyerProfileInforCardClasses(addressCard);
     addressCard.classList.add('address-info-card');
+    addressCard.setAttribute('data-address-id', addressInfo.addressId);
 
     addressCard.style.borderRadius = "1.5rem";
     addressCard.style.backgroundColor = "white";

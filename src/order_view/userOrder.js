@@ -1,23 +1,44 @@
-appendUserAddressCard({
+const address1 = {
+    addressId: 'address1',
     street: 'Avinguda dels Tarongers S/n Edificio 1H Planta baja',
     province: 'Valencia',
     country: 'España',
     postCode: '46021'
-});
+};
+appendUserAddressCard(address1);
+localStorage.setItem('address1', JSON.stringify(address1));
 
-appendUserAddressCard({
+const address2 = {
+    addressId: 'address2',
     street: 'Carrer Pepe Alba 14 P1-4',
     province: 'Valencia',
     country: 'España',
     postCode: '46033'
-});
+};
+appendUserAddressCard(address2);
+localStorage.setItem('address2', JSON.stringify(address2));
 
-appendPaymentMethodCard({
+const card1 = {
+    paymentId: "card1",
     type: "Debito",
     holder: "Josefa Manolo",
     cardNumber: "ES** **** **** **** 1234",
-    expiryDate: "03/28"
-});
+    expiryDate: "03-28"
+}
+appendPaymentMethodCard(card1);
+localStorage.setItem('card1', JSON.stringify(card1));
+
+
+const paypal1 = {
+    paymentId: "paypal1",
+    type: "PayPal",
+    holder: "Josefa Manolo",
+    cardNumber: "jomanolo@manolo.manolo",
+};
+appendPaymentMethodPaypal(paypal1);
+localStorage.setItem('paypal1', JSON.stringify(paypal1));
+
+let total = 0;
 
 let deleteButtons = document.getElementsByClassName('profile-listing-trash-button');
 let addButtons = document.getElementsByClassName('profile-listing-add-button');
@@ -32,7 +53,7 @@ reloadOrderList();
 
 async function orderListingUpdate() {
     orderItemsWrapper.innerHTML = '';
-    let total = 0;
+    total = 0;
 
     await fetch(`http://localhost:5237/api/Api/obtener-carrito/${loggedUser.id}`)
         .then(res=> res.json())
@@ -92,7 +113,13 @@ function loadMakeOrderListener() {
     let makeOrderButton = document.getElementById('make-order-button');
 
     makeOrderButton.addEventListener('click', async () => {
-        await fetch(`http://localhost:5237/api/Api/realizar-pedido/${loggedUser.id}`, {
+        let url;
+        if (sessionStorage.getItem('payment-selection') == 'card1') {
+            url = `http://localhost:5237/api/Api/realizar-pedido/${loggedUser.id}/123456/${card1.holder.replaceAll(' ', '')}/${card1.expiryDate}/tarjeta/${parseInt(total)}`;
+        } else {
+            url = `http://localhost:5237/api/Api/realizar-pedido/${loggedUser.id}/0/${paypal1.cardNumber}/${paypal1.holder}/paypal/${parseInt(total)}`;
+        }
+        await fetch(url, {
             method: 'POST'
         })
             .then(res=> res.ok)
@@ -105,7 +132,7 @@ function loadMakeOrderListener() {
                     successMessage.classList.add('flex');
                     successMessage.classList.add('flex-col');
                     successMessage.classList.add('items-center');
-                    successMessage.style.margin = '6rem 0';
+                    successMessage.style.margin = '10rem 0';
 
                     successMessage.innerHTML = `
                         <img src="https://img.freepik.com/free-vector/box-carrots-white-background_1308-38269.jpg" style="width: 30rem; height: 25rem; margin: 2rem">
@@ -174,22 +201,21 @@ function addOrderListeners() {
 async function reloadOrderList() {
     await orderListingUpdate();
     addOrderListeners();
+    addPaymentCardsListeners();
+    addAddressCardsListeners();
 }
 
 function addPaymentCardsListeners() {
-    let paymentCards = document.getElementsByClassName('address-info-card');
+    let paymentCards = document.getElementsByClassName('payment-info-card');
 
     for (let i = 0; i < paymentCards.length; i++) {
-        let currentPaymentCard = paymentCards[i];
-
         paymentCards[i].addEventListener('click', () => {
-            let addressCards = document.getElementsByClassName('address-info-card');
-
-            for (let j = 0; j < addressCards.length; j++) {
-                addressCards[i].classList.remove('selected-payment-card');
+            for (let j = 0; j < paymentCards.length; j++) {
+                paymentCards[j].classList.remove('selected-payment-card');
             }
 
-            currentPaymentCard.classList.add('selected-payment-card');
+            paymentCards[i].classList.add('selected-payment-card');
+            sessionStorage.setItem('payment-selection', paymentCards[i].getAttribute('data-payment-id'));
         });
     }
 }
@@ -198,16 +224,13 @@ function addAddressCardsListeners() {
     let addressCards = document.getElementsByClassName('address-info-card');
 
     for (let i = 0; i < addressCards.length; i++) {
-        let currentAddressCard = addressCards[i];
-
         addressCards[i].addEventListener('click', () => {
-            let addressCards = document.getElementsByClassName('address-info-card');
-
             for (let j = 0; j < addressCards.length; j++) {
-                addressCards[i].classList.remove('selected-address-card');
+                addressCards[j].classList.remove('selected-address-card');
             }
 
-            currentAddressCard.classList.add('selected-address-card');
+            addressCards[i].classList.add('selected-address-card');
+            sessionStorage.setItem('address-selection', addressCards[i].getAttribute('data-address-id'));
         });
     }
 }
